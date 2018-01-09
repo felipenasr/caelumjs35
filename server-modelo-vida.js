@@ -30,10 +30,6 @@ server.listen(3000, 'localhost', ()=>{
 
 
 
-
-
-
-
 // var http = require('http');
 
 // // criar servidor
