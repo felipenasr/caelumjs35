@@ -1,15 +1,15 @@
 const mysql = require('mysql');
 
 
-function fabricaDeConexao(){
+function connectionFactory(){
     return mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: 'caelum',
+        password: '1234',
         database: 'casadocodigo'
     })
 }
 
 
 
-module.exports = fabricaDeConexao;
+module.exports = () => connectionFactory;

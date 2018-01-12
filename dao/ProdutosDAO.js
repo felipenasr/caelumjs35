@@ -10,7 +10,7 @@ class ProdutosDAO{
         this._connection.query('INSERT INTO livros SET ?', produto, callback);
     }
 }
-module.exports = ProdutosDAO;
+module.exports = () => ProdutosDAO;
 
 
 // function ProdutosDAO(){

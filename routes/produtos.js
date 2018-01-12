@@ -1,22 +1,23 @@
 module.exports = (app) => {
     
     app.get('/produtos', (req, res)=>{
-        const connection = require('../infra/conexaoComOBanco')();
-        const ProdutosDAO = require('../dao/ProdutosDAO');
-        const produtosDAO = new ProdutosDAO(connection);
+        const connection = app.infra.connectionFactory();
+        const produtosDAO = new app.dao.ProdutosDAO(connection);
         
         produtosDAO.lista( (err, result)=>{
             const pagina = 'Produtos';
-            res.render('produtos/lista', { produtos: result});            
-            // res.send(result);            
+            
+            res.format({
+                html: () => res.render('produtos/lista', { produtos: result}),
+                json: () => res.send({ result })
+            });
         });
     })
     
     
     app.post('/produtos',(req, res)=>{
-        const connection = require('../infra/conexaoComOBanco')();
-        const ProdutosDAO = require('../dao/ProdutosDAO');
-        const produtosDAO = new ProdutosDAO(connection);
+        const connection = app.infra.connectionFactory();
+        const produtosDAO = new app.dao.ProdutosDAO(connection);        
 
         const produto = req.body;
 
@@ -41,7 +42,7 @@ module.exports = (app) => {
 
 
    app.get('/produtos/:id', (req, res)=>{
-        const connection = require('../infra/conexaoComOBanco')();       
+        const connection = app.infra.connectionFactory();       
         const idDoLivro = req.params.id;
 
         connection.query('SELECT * FROM livros WHERE id = ?', idDoLivro, (err, result)=>{

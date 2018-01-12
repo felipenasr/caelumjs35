@@ -16,6 +16,8 @@ app.use(expressValidator());
 
 // 2 - rotas
 load('routes')
+    .then('infra')
+    .then('dao')
     .into(app);
 
 
