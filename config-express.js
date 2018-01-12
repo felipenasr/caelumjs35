@@ -2,6 +2,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const expressValidator = require('express-validator');
+const load = require('express-load');
 const app = express();
 app.set('view engine', 'ejs');
 
@@ -14,11 +15,8 @@ app.use(expressValidator());
 
 
 // 2 - rotas
-const rotasProdutos = require('./routes/produtos');
-rotasProdutos(app);
-
-const rotasHome = require('./routes/home');
-rotasHome(app);
+load('routes')
+    .into(app);
 
 
 // 3 - tratando erros
